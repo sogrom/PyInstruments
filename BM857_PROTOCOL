@@ -1,0 +1,213 @@
+
+SAMPLE_DATA = [
+    0b11101101,
+    0b11101101,
+    0b11111101,
+    0b11000001,
+    0b11101001,
+    0b11000001,
+    0b11100001,
+    0b11011101,
+    0b11110101,
+    0b11011101,
+    0b11110101,
+    0b11011101,
+    0b11111001,
+    0b11100101,
+    0b11010101,
+    0b11000101,
+    0b11111101,
+    0b11000001,
+    0b11000001,
+    0b11001101,
+    0b11000001,
+    0b11000001,
+    0b11000001,
+    0b11000001,
+    0b11000001,
+    0b11000001,
+    0b11000001,
+    0b11000001,
+    0b11000001,
+    0b11000001,
+    0b11000001,
+    0b11000001,
+    0b11000001,
+    0b11000001,
+    0b11101001,
+]
+
+
+
+19-29 - bargraph
+17-18 - 6'th digit and dot
+15-16 - 5'th digit and dot
+13-14 - 4'th digit and dot
+11-12 - 3'rd digit and dot
+9-10  - 2'nd digit and dot
+7-8   - 1'st digit and minus
+
+
+
+   |   09   | |   10   |
+1: 11 0000 01 11 0101 01
+2: 11 0101 01 11 1011 01
+3: 11 0001 01 11 1111 01
+4: 11 0010 01 11 0111 01
+5: 11 0011 01 11 1110 01
+6: 11 0111 01 11 1110 01
+7: 11 0001 01 11 0101 01
+8: 11 0111 01 11 1111 01
+9: 11 0011 01 11 1111 01
+0: 11 0111 01 11 1101 01
+
+    A
+  F   B
+    G
+  E   C
+DP  D
+
+Bits - segment in digit:
+7: DP
+6: E
+5: F
+4: A
+3: D
+2: C
+1: G
+0: B
+
+
+stripped bytes:
+
+
+
+B00: static 0xED - probably BM857 signature
+B01: switch position
+    value   =   pos     func    alt
+    0xff    =   #1      Vac     dBm
+    0x7f    =   #2      Vdc     +ac
+    0xbf    =   #3      mVdc    +ac
+    0xdf    =   #4      Hz      %
+    0xef    =   #5      diode
+    0xfe    =   #6      R       cont
+    0xfd    =   #7      F
+    0xfb    =   #7      mA/Adc  +ac
+    0xf7    =   #8      uAdc    +ac
+
+B02:
+    7: M    # multiplier e+6
+    6: k    # multiplier e+3
+    5: R    # unit
+    4: Hz   # unit
+    3: V    # unit
+    2: u    # multiplier e-6
+    1: m    # multiplier e-3
+    0:      
+B03:
+    7:      
+    6: n    # multiplier e-9
+    5:      
+    4:      
+    3: AC   # coupling
+    2: DC   # coupling
+    1: HOLD # state
+    0: AUTO # ranging
+B04: 1'st digit and minus
+    7: MINUS
+    6: E
+    5: F
+    4: A
+    3: D
+    2: C
+    1: G
+    0: B
+B05: 2'nd digit and dot
+    7: DP
+    6: E
+    5: F
+    4: A
+    3: D
+    2: C
+    1: G
+    0: B
+B06: 3'rd digit and dot
+    7: DP
+    6: E
+    5: F
+    4: A
+    3: D
+    2: C
+    1: G
+    0: B
+B07: 4'th digit and dot
+    7: DP
+    6: E
+    5: F
+    4: A
+    3: D
+    2: C
+    1: G
+    0: B
+B08: 5'th digit and dot
+    7: DP
+    6: E
+    5: F
+    4: A
+    3: D
+    2: C
+    1: G
+    0: B
+B09: 6'th digit and dot
+    7: DP
+    6: E
+    5: F
+    4: A
+    3: D
+    2: C
+    1: G
+    0: B
+B10:
+
+    7:
+    6: CONT
+    5: BARGRAPH 0 START
+    4: BARGRAPH 1
+    3: BARGRAPH 5
+    2: BARGRAPH 4
+    1: BARGRAPH 3
+    0: BARGRAPH 2
+B11: BARGRAPH
+B12: BARGRAPH
+B13: BARGRAPH
+B14: BARGRAPH
+B15: BARGRAPH
+    7: BARGRAPH 46
+    6: BARGRAPH 47
+    5: BARGRAPH 48
+    4: BARGRAPH 49 END
+    3: %
+    2:
+    1: MIN
+    0:
+B16:
+    7: REC
+    6: MAX
+    5:
+    4: MINUS (MAX MIN) PP
+    3:
+    2:
+    1:
+    0:
+B17:
+    7: DELTA
+    6:
+    5:
+    4:
+    3:
+    2:
+    1:
+    0:
+
+
+
