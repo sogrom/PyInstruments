@@ -16,8 +16,8 @@ class Meter:
                                       parity=serial.PARITY_NONE, rtscts=0)
             print("Opened: {0}\n\n".format(comport))
             if not self.connected():
-                raise ConnectionError('Connection error')
-            print("Connected to device")
+                raise ConnectionError('Connection error.')
+            print("Device connected.")
         except serial.SerialException as e:
             raise IOError("I/O error({0}): {1}".format(e.errno, e.strerror))
 
