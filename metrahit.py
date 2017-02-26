@@ -1,5 +1,6 @@
 from instruments import Meter
 
+
 class Metrahit(Meter):
 
     default_baud = 38400
@@ -18,12 +19,9 @@ class Metrahit(Meter):
         "power": 0,
     }
 
-
-
     def get_data(self):
         self.raw_data = self.port.readline()
         raw = self.raw_data.decode('ascii').split(',')
-
 
         self.mode = raw[1]
         self.data["voltage"] = raw[0]
