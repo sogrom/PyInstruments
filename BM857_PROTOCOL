@@ -82,7 +82,7 @@ stripped bytes:
 
 
 
-B00: static 0xED - probably BM857 signature
+B00:
 B01: switch position
     value   =   pos     func    alt
     0xff    =   #1      Vac     dBm

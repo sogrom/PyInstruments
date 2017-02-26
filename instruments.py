@@ -2,7 +2,37 @@ import serial
 import platform
 
 
-class Meter:
+class MEAS:
+    VOLT = 'Voltage'
+    MAGN = 'Magnitude'
+    DUTY = 'DutyCycle'
+    CAP = 'Capacitance'
+    FREQ = 'Frequency'
+    CURR = 'Current'
+    DIOD = 'Diode'
+    RES = 'Resistance'
+    CONT = 'Continuity'
+
+    # raw stream type, for scopes
+    RAW = 'RawData'
+
+MEAS_UNITS = {
+    MEAS.VOLT: 'V',
+    MEAS.MAGN: 'dB',
+    MEAS.DUTY: '%',
+    MEAS.CAP: 'F',
+    MEAS.FREQ: 'Hz',
+    MEAS.CURR: 'A',
+    MEAS.DIOD: 'V',
+    MEAS.RES: 'R',
+    MEAS.CONT: 'R',
+}
+
+MEAS_AC = 'AC'
+MEAS_DC = 'DC'
+
+
+class Meter(object):
 
     default_baud = 9600
 
@@ -31,4 +61,3 @@ class Meter:
     @property
     def data(self):
         raise NotImplementedError
-
