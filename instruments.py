@@ -61,3 +61,14 @@ class Meter(object):
     @property
     def data(self):
         raise NotImplementedError
+
+        channels = [{
+            'MeasType': None,
+            'Value': None,
+            'Components': None,
+            'Options': None,
+        }]
+
+        return channels
+
+

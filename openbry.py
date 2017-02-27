@@ -81,7 +81,7 @@ class BM857(Meter):
         misc = []
 
         try:
-
+            str_value = str_value.replace('- ', '-')
             flt_value = float(str_value)
             value = flt_value
         except ValueError:
@@ -127,10 +127,14 @@ class BM857(Meter):
             mode = MEAS.VOLT
         elif swpos == 0xdf:  # 4. Hz
             mode = MEAS.FREQ
+            if '%' in misc:
+                mode = MEAS.DUTY
         elif swpos == 0xef:  # 5. V DIODE
             mode = MEAS.DIOD
         elif swpos == 0xfe:  # 6. RES
             mode = MEAS.RES
+            if 'CONT' in misc:
+                mode = MEAS.CONT
         elif swpos == 0xfd:  # 7. CAP
             mode = MEAS.CAP
         elif swpos == 0xfb:  # 8. A/mA
@@ -140,11 +144,17 @@ class BM857(Meter):
         else:
             raise ValueError('Unable to parse switch position: swpos {0}'.format(swpos))
 
-        return {
-            'Values': {mode: value * multiplier},
+        if 'Hz' in misc:
+            mode = MEAS.FREQ
+
+        channels = [{
+            'MeasType': mode,
+            'Value': value * multiplier,
             'Components': components,
-            'Functions': misc,
-        }
+            'Options': misc,
+        }]
+
+        return channels
 
 
 lcd_chars = {
@@ -189,6 +199,9 @@ components_masks = {
 }
 
 misc_masks = {
+    2: {
+        0b00010000: 'Hz',
+    },
     3: {
         0b00000010: 'HOLD',
         0b00000001: 'AUTO',

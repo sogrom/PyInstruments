@@ -14,7 +14,7 @@ import time
 
 for _ in range(100000):
      print(miernik.data)
-     time.sleep(2)
+     time.sleep(0.2)
 
 olddata = [255]*35
 
