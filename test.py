@@ -12,19 +12,17 @@ for _ in range(100000):
     print(data)
     time.sleep(0.2)
 
-olddata = [255]*35
 
-for _ in range(10000):
+def packet_binary_diff(data, start=0, stop=35):
 
-    newdata = meter.unpack_data(meter.raw_data)
+    olddata = [255]*35
+    newdata = data
 
-    start_byte = 0
-    stop_byte = 35
-    for bytenum in range(start_byte, stop_byte):
+    for bytenum in range(start, stop):
         print('   |{0:02d}|    '.format(bytenum), end=' ')
     print('')
 
-    for newbyte, oldbyte in zip(newdata[start_byte:stop_byte], olddata[start_byte:stop_byte]):
+    for newbyte, oldbyte in zip(newdata[start:stop], olddata[start:stop]):
         bits_string = '0b{0:08b},'.format(newbyte)
         if oldbyte != newbyte:
             bits_string = '\033[31;m' + bits_string + '\033[0m'
@@ -33,7 +31,6 @@ for _ in range(10000):
     print('\n')
 
     olddata = newdata
-
 
 #
 
