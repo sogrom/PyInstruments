@@ -1,26 +1,22 @@
-import openbry
-
-
-miernik = openbry.BM857()
-
-
-import logging
-
-logger = logging.getLogger('OpenBryLogger')
-logger.setLevel(logging.DEBUG)
-logger.debug("dupa")
-
+import instruments as instr
 import time
 
+meter = instr.BM857()
+
+
 for _ in range(100000):
-     print(miernik.data)
-     time.sleep(0.2)
+    then = time.time()
+    data = meter.data
+    now = time.time()
+    print(now-then)
+    print(data)
+    time.sleep(0.2)
 
 olddata = [255]*35
 
 for _ in range(10000):
 
-    newdata = miernik.unpack_data(miernik.raw_data)
+    newdata = meter.unpack_data(meter.raw_data)
 
     start_byte = 0
     stop_byte = 35

@@ -1,4 +1,4 @@
-from instruments import Meter, MEAS
+from base_classes import Meter, MEAS
 import logging
 
 
@@ -42,7 +42,7 @@ class BM857(Meter):
                 continue
 
             for byte in data:
-                if byte & 0xC1 != 0xC1:
+                if byte & 0b1100_0011 != 0b1100_0001:
                     raise ValueError('Byte 0b{0:08b} does not match the mask 11XXXX01'.format(byte))
 
             # print('{0}'.format(data), end='\n\n')
