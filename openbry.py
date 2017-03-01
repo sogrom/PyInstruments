@@ -1,9 +1,11 @@
 from instruments import Meter, MEAS
 import logging
 
+
 logger = logging.getLogger('OpenBryLogger')
-logger.setLevel(logging.DEBUG)
-logger.debug("dupa")
+logger.addHandler(logging.StreamHandler())
+
+logger.setLevel(logging.NOTSET)
 
 
 class BM857(Meter):
@@ -19,7 +21,7 @@ class BM857(Meter):
         MEAS.CURR,
         MEAS.DIOD,
         MEAS.RES,
-        MEAS.CONT
+        MEAS.CONT,
     )
 
     def connected(self):
@@ -41,10 +43,10 @@ class BM857(Meter):
 
             for byte in data:
                 if byte & 0xC1 != 0xC1:
-                    raise ValueError('Byte {:02X} does not match the mask 11XXXX01'.format(byte))
+                    raise ValueError('Byte 0b{0:08b} does not match the mask 11XXXX01'.format(byte))
 
             # print('{0}'.format(data), end='\n\n')
-            logger.debug("Repeated {0} times.".format(rep))
+            logger.debug("Raw data read repeated {0} times.".format(rep))
             return data
 
         raise ValueError('Repeated {0} times. Invalid data or timeout data: {1}'.format(self.raw_repeat, data))
