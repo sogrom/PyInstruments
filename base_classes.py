@@ -11,6 +11,10 @@ class MEAS:
     DIOD = 'Diode'
     RES = 'Resistance'
     CONT = 'Continuity'
+    REPOW = 'RealPower'
+    COMPOW = 'ComplexPower'
+    POWFAC = 'PowerFactor'
+    RAPOW = 'ReactivePower'
 
     # raw stream type, for scopes
     RAW = 'RawData'
